@@ -8,7 +8,7 @@ function post_user_form(){
 ?>
 
 <div class="container mt-4">
-    <div id="form-message" class=" d-none bg-primary">Result: </div>
+    <div id="form-message" class="d-none  bg-primary">Result: </div>
 
     <form id="my-user-post-form" class="card p-4">
         <h4 class="mb-3">Create User + Post</h4>
@@ -54,9 +54,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     title: $('#post_title').val(),
                     content: $('#post_content').val()
                 },
-                success: function(){
-                    $('#form-message').html('Your post is added!');
+                success: function(res){
+                $('#form-message').removeClass('d-none').html(res.message);
                 },
+                
                 error: function(){
                     $('#form-message').html('Something went wrong.');
                 }
@@ -123,7 +124,11 @@ function custom_route(){
         'post_author'  => $user_id
     ]);
 
-    return ['success' => true];
+    return [
+  'success' => true,
+  'message' => 'User and post added'
+];
+
 }
 
 
