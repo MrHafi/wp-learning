@@ -55,9 +55,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     content: $('#post_content').val()
                 },
                 success: function(res){
-                $('#form-message').removeClass('d-none').html(res.message);
-                },
-                
+                    if(res.success){
+                        $('#form-message')
+                        .removeClass('d-none')
+                        .html('<a href="'+res.redirect+'" class="btn btn-success">Go to Dashboard</a>');
+                    }
+                    },
+
                 error: function(){
                     $('#form-message').html('Something went wrong.');
                 }
@@ -116,6 +120,11 @@ function custom_route(){
                 $user_id = $user->ID;
             }
 
+                 // SAVING USER FOR DIRECT LOGIN
+                  wp_set_current_user($user_id); 
+                  wp_set_auth_cookie($user_id);
+
+
     // CREATE POST FOR BOTH CASES
     wp_insert_post([
         'post_title'   => $title,
@@ -126,7 +135,8 @@ function custom_route(){
 
     return [
   'success' => true,
-  'message' => 'User and post added'
+  'message' => 'User and post added',
+   'redirect' => site_url('/dashboard')
 ];
 
 }
