@@ -65,20 +65,11 @@ function get_boiler_api() {
   <div class="list-group-item">
     <div class="fw-bold"><?php echo esc_html($item['name'] ?? ''); ?></div>
 
-    <div class="small mb-2">
-      Fuel: <?php echo esc_html($item['fuel'] ?? '-'); ?> |
-      Type: <?php echo esc_html($item['main_type'] ?? '-'); ?> |
-      Winter: <?php echo esc_html($item['s_a_p_winter_seasonal_efficiency'] ?? '-'); ?> |
-      Summer: <?php echo esc_html($item['s_a_p_summer_seasonal_efficiency'] ?? '-'); ?> |
-<h4> EXTRA DETAILS: </h4>
-      Brand: <?php echo esc_html($extra['brand'] ?? '-'); ?> | 
-      type: <?php echo esc_html($extra['type'] ?? '-'); ?>  | 
-      status: <?php echo esc_html($extra['status'] ?? '-'); ?> | 
-      efficiency_category: <?php echo esc_html($extra['efficiency_category'] ?? '-'); ?> | 
-      original_manufacturer_name: <?php echo esc_html($extra['original_manufacturer_name'] ?? '-'); ?> | 
-      final_year_of_manufacture: <?php echo esc_html($extra['final_year_of_manufacture'] ?? '-'); ?> | 
+   <div class="small mb-2">
+  Fuel: <?php echo esc_html($item['fuel'] ?? '-'); ?> |
+  Type: <?php echo esc_html($item['main_type'] ?? '-'); ?>
+</div>
 
-    </div>
 
     <button onclick='addCompare(<?php echo json_encode($item); ?>)'> <!-- SENDING FUILL ITEM WITH  BUTTON  -->
       Add to compare
@@ -108,28 +99,26 @@ function show_in_container(item) {
   let extra = item.extra_data ? JSON.parse(item.extra_data) : {}; // json to js obj (like decode in php)
 
   return `
-    <div class="card mb-2 shadow-sm">
-      <div class="card-body p-2">
-        <h6 class="card-title mb-1">${item.name}</h6>
+  <div class="card mb-2 shadow-sm">
+    <div class="card-body p-2">
+      <h6 class="card-title mb-2">${item.name}</h6>
 
-        <p class="mb-1 small">
-          <span class="badge bg-secondary me-1">Fuel</span> ${item.fuel || '-'}
-        </p>
+      <p class="small mb-1"><strong>Fuel:</strong> ${item.fuel || '-'}</p>
+      <p class="small mb-1"><strong>Type:</strong> ${item.main_type || '-'}</p>
+      <p class="small mb-1"><strong>Winter Eff:</strong> ${item.s_a_p_winter_seasonal_efficiency || '-'}</p>
+      <p class="small mb-1"><strong>Summer Eff:</strong> ${item.s_a_p_summer_seasonal_efficiency || '-'}</p>
 
-        <p class="mb-1 small">
-          <span class="badge bg-info me-1">Type</span> ${item.main_type || '-'}
-        </p>
+      <hr class="my-2">
 
-        <p class="mb-1 small">
-          <span class="badge bg-success me-1">Brand</span> ${extra.brand || '-'}
-        </p>
-
-        <p class="mb-1 small">
-          <span class="badge bg-warning text-dark me-1">Status</span> ${extra.status || '-'}
-        </p>
-      </div>
+      <p class="small mb-1"><strong>Brand:</strong> ${extra.brand || '-'}</p>
+      <p class="small mb-1"><strong>Status:</strong> ${extra.status || '-'}</p>
+      <p class="small mb-1"><strong>Category:</strong> ${extra.efficiency_category || '-'}</p>
+      <p class="small mb-1"><strong>Manufacturer:</strong> ${extra.original_manufacturer_name || '-'}</p>
+      <p class="small mb-0"><strong>Final Year:</strong> ${extra.final_year_of_manufacture || '-'}</p>
     </div>
-  `;
+  </div>
+`;
+
 }
 
 
