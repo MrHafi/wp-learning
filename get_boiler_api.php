@@ -4,11 +4,22 @@ add_shortcode( 'get_boiler_api', 'get_boiler_api' );
 function get_boiler_api() {
 
   ob_start();
+
+// <!-- ////////////SEARCHING/////////// -->
+echo do_shortcode('[search_boiler_api]');
+
 ?>
+
+
+<!-- RESULTS -->
+<div id="search-results" class="list-group">   </div>
+
 
 <!-- FRONTENDD COPARE CONTAINER -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
+
+<!-- COMPARE container -->
 <div id="compare" class="container my-4">
   <div class="row g-3 align-items-stretch">
     
@@ -43,8 +54,9 @@ function get_boiler_api() {
 
   // ERROR CHECK
   if ( is_wp_error( $response ) ) { 
-    return $response->get_error_message(); 
-  }
+  wp_send_json([]);
+}
+
 
   $body = wp_remote_retrieve_body( $response );
   $data = json_decode( $body, true );
@@ -75,8 +87,12 @@ function get_boiler_api() {
       Add to compare
     </button>
   </div>
+
+
 <?php endforeach; ?>
 </div>
+
+<!-- COMPARISON JS FORR CONTAINER -->
 <script>
  let box1 = document.getElementById('box1'); // first box
 let box2 = document.getElementById('box2'); // second box
