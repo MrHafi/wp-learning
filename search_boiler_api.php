@@ -22,7 +22,12 @@ function boiler_search() {
   );
 
   if (is_wp_error($response)) {
-    wp_send_json([]);
+
+              // 3 LETTERS MIN
+              if (strlen($keywords) < 3) {
+              wp_send_json([]);
+              }
+
   }
 
   $json = json_decode(wp_remote_retrieve_body($response), true);
@@ -35,7 +40,8 @@ function boiler_search() {
         !empty($item['name']) &&
         stripos($item['name'], $keywords) !== false //strpos : MATCHING BOTH KEYWORDS & ITEMS
     ) {
-        $results[] = ['name' => $item['name']];
+        $results[] = $item; // send full item
+
     }
 }
 

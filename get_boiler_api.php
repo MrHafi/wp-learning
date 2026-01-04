@@ -11,9 +11,9 @@ echo do_shortcode('[search_boiler_api]');
 ?>
 
 
-<!-- RESULTS -->
+<!-- RESULTS 
 <div id="search-results" class="list-group">   </div>
-
+-->
 
 <!-- FRONTENDD COPARE CONTAINER -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -99,11 +99,16 @@ let box2 = document.getElementById('box2'); // second box
 
 let c = []; 
 
-function addCompare(item) { // NEW CLICK FOR COMPARE
-  if (c.length === 2) c.shift(); // keep 2 only
-  c.push(item); 
-  show();  
+function addCompare(item) {
+  c = c.filter(i => i.id !== item.id); // SAME ON BOTH COMPARE
+
+  if (c.length === 2) c.shift(); // keep 2
+  c.push(item);
+
+  show();
 }
+
+
 
 function show() { // show data
   box1.innerHTML = c[0] ? show_in_container(c[0]) : 'Empty';

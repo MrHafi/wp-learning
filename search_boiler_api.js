@@ -4,6 +4,14 @@ jQuery(function ($) {
 
     let search = $(this).val();
 
+        //LESSER THAN 3 CHARS 
+        if (search.length < 3 && search.length >0) {
+        $('#search-results').html('<div>Enter at least 3 characters</div>');
+        return;
+        }
+
+
+
     $.ajax({
       url: ajax_obj.ajaxurl,
       type: 'GET',
@@ -13,10 +21,18 @@ jQuery(function ($) {
       },
       success: function (res) {
         $('#search-results').html('');
-        res.forEach(item => {
-          $('#search-results').append('<div>' + item.name + '</div>'); // append meanss adding a new html thign for each separate item
+       res.forEach(item => {
+          let div = $('<div>')
+            .addClass('list-group-item list-group-item-action cursor-pointer')
+            .text(item.name)
+            .click(() => addCompare(item));
+
+          $('#search-results').append(div);
         });
+
       }
+
+      
     });
 
   });
