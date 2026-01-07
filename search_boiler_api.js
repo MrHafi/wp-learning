@@ -25,7 +25,12 @@ jQuery(function ($) {
           let div = $('<div>')
             .addClass('list-group-item list-group-item-action cursor-pointer')
             .text(item.name)
-            .click(() => addCompare(item));
+            .click(() => {
+
+
+             // ADDING LINK TO A SEPARATE PAGE
+              window.location.href = "/single-boiler/?id=" + item.id;
+});
 
           $('#search-results').append(div);
         });

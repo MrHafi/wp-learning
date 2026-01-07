@@ -67,6 +67,18 @@ function custom_rest_post_creator_activate() {
     }
 
 
+// CREATING SINGLE BOILER PAGE ON ACTIVATION
+ if (!get_page_by_path('single-boiler')) {
+        wp_insert_post([
+            'post_title'   => 'Single Boiler',
+            'post_name'    => 'single-boiler',
+            'post_content' => '[boiler_detail]',
+            'post_status'  => 'publish',
+            'post_type'    => 'page'
+        ]);
+    }
+
+
 }
 register_activation_hook( __FILE__, 'custom_rest_post_creator_activate' );
 
@@ -112,6 +124,8 @@ require_once plugin_dir_path(__FILE__) . 'get_boiler_api.php';
 require_once plugin_dir_path(__FILE__) . 'search_boiler_api.php';
 
 require_once plugin_dir_path(__FILE__) . 'rough.php';
+require_once plugin_dir_path(__FILE__) . 'single-boiler.php';
+
 
  
 // ADDING JS FILE FOR SEARCH BOILER API
